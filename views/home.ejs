@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('header') -%>
+
+    <body class="g-sidenav-show">
+        <%- include('menu') -%>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-2 top-1 px-0 py-1 mx-3 shadow-none border-radius-lg z-index-sticky"
+                    id="navbarBlur" data-scroll="true">
+                    <div class="container-fluid py-1 px-2">
+                        <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+                            <a href="javascript:;" class="nav-link text-body p-0">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <nav aria-label="breadcrumb" class="ps-2">
+                            <ol class="breadcrumb bg-transparent mb-0 p-0">
+                                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
+                                        href="javascript:;">Connect 360</a></li>
+                                <li class="breadcrumb-item text-sm text-dark active font-weight-bold"
+                                    aria-current="page">Trang chủ</li>
+                            </ol>
+                        </nav>
+                        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+
+                            </div>
+                            <ul class="navbar-nav  justify-content-end">
+                                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                        <div class="sidenav-toggler-inner">
+                                            <i class="sidenav-toggler-line"></i>
+                                            <i class="sidenav-toggler-line"></i>
+                                            <i class="sidenav-toggler-line"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
+                <div class="container-fluid py-2">
+                    <div class="row">
+                        
+                        <% if (data?.devices.length == 0) { %>
+                            <div class="col-lg-4 mt-4">
+                                <div class="card">
+                                    <div class="card-body p-3 position-relative">
+                                        
+                                        <div class="row">
+                                                
+                                                <h3 class="text-gradient text-primary">
+                                                    Không Có Kết Nối
+                                                </h3>
+                                                <p class="text-sm mb-1 font-weight-bold">Bạn chưa được kết nối với bất kì thiết bị nào</p>
+                                                <p class="text-sm mb-1 font-weight-bold">Vui lòng liên hệ : 090xxxxxxx để biết thêm chi tiết</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          <% } else { %>
+                            <% for (let i = 0; i < data.devices.length; i++) { %>
+                                <% if(data.devices[i]?.active !=1) { %>
+                                    <div class="col-lg-4 mt-4">
+                                        <div class="card device-item-card">
+                                            <div class="card-body p-3 position-relative">
+                                                <div class="row">
+                                                    <div class="col-7 text-start">
+                                                        <p class="text-md mb-1 text-capitalize font-weight-bold text-dark "><%= data.devices[i]?.device_name%></p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <div class="dropdown text-end">
+                                                            <span class="text-warning text-sm font-weight-bolder device-status">Đã bị khoá</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                        <p class="text-sm mb-1 text-capitalize "><%= data.devices[i]?.description %></p>
+                                                        <div class="row">
+                                                            <div class="d-flex align-items-center">
+                                                            <h1 class="text-gradient text-primary device-temperature mb-0 me-2">--</h1>
+                                                            <span class="text-lg text-primary device-unit">--</span>
+                                                            </div>
+                                                        </div>
+                                                    <p class="mb-1 ">Độ ẩm: 
+                                                        <span class="text-lg font-weight-bold device-humidity" >--</span>
+                                                    </p>
+                                                    <p class="text-sm mb-1 text-capitalize device-last-updated">--</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } else { %>
+                                    <div class="col-lg-4 mt-4">
+                                        <div class="card device-item-card" data-device-channel="<%= data.devices[i]?.channel %>">
+                                            <div class="card-body p-3 position-relative">
+                                                <div class="row">
+                                                    <div class="col-7 text-start">
+                                                        <p class="text-md mb-1 text-capitalize font-weight-bold text-dark "><%= data.devices[i]?.device_name%></p>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <div class="dropdown text-end">
+                                                            <span class="text-warning text-sm font-weight-bolder device-status">Đang kết nối</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                        <p class="text-sm mb-1 text-capitalize "><%= data.devices[i]?.description %></p>
+                                                        <div class="row">
+                                                            <div class="d-flex align-items-center">
+                                                            <h1 class="text-gradient text-primary device-temperature mb-0 me-2">--</h1>
+                                                            <span class="text-lg text-primary device-unit">--</span>
+                                                            </div>
+                                                        </div>
+                                                    <p class="mb-1 ">Độ ẩm: 
+                                                        <span class="text-lg font-weight-bold device-humidity" >--</span>
+                                                    </p>
+                                                    <p class="text-sm mb-1 text-capitalize device-last-updated">--</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                          <% } %>
+
+                       
+                    </div>
+                </div>
+            </main>
+            <%- include('script') -%>
+    </body>
+
+</html>

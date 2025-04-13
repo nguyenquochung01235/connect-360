@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../admin_header') -%>
+
+  <body class="g-sidenav-show  bg-gray-100">
+
+    <body class="g-sidenav-show">
+      <%- include('../admin_menu') -%>
+
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+          <!-- Navbar -->
+          <nav
+            class="navbar navbar-main navbar-expand-lg position-sticky mt-2 top-1 px-0 py-1 mx-3 shadow-none border-radius-lg z-index-sticky"
+            id="navbarBlur" data-scroll="true">
+            <div class="container-fluid py-1 px-2">
+              <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+                <a href="javascript:;" class="nav-link text-body p-0">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </div>
+              <nav aria-label="breadcrumb" class="ps-2">
+                <ol class="breadcrumb bg-transparent mb-0 p-0">
+                  <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Connect 360</a>
+                  </li>
+                  <li class="breadcrumb-item text-sm text-dark active font-weight-bold" aria-current="page">User
+                    Management</li>
+                </ol>
+              </nav>
+              <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+
+                </div>
+                <ul class="navbar-nav  justify-content-end">
+                  <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                      <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+
+          <div class="container-fluid py-2">
+            <div class="row">
+              <div class="col-lg-12 position-relative z-index-2">
+                <div class="ms-3">
+                  <h3 class="mb-0 h4 font-weight-bolder">User Management</h3>
+                  <p class="mb-2">
+                    Check the user, device and all status.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid py-2">
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <!-- Card header -->
+                  <div class="card-header">
+
+                    <div class="row justify-content-between">
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+                        <a href="/admin/panel/user-management/create" class="btn btn-success btn-md">Create New User</a>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="d-flex justify-content-between">
+                          <div class="input-group input-group-outline">
+                            <label class="form-label">Search here</label>
+                            <input type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <div class="table-responsive">
+                      <table class="table table-flush" id="datatable-basic">
+                        <thead class="thead-light">
+                          <tr>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username
+                            </th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Active</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created at
+                            </th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Updated at
+                            </th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div class="dataTable-bottom">
+                        <div class="dataTable-info"></div>
+                        <nav class="dataTable-pagination">
+                          <ul class="pagination-list">
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </main>
+        <%- include('../admin_script') -%>
+          <script src="/template/js/admin_user_management.js"></script>
+    </body>
+
+</html>

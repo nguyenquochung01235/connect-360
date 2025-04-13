@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../admin_header') -%>
+
+  <body class="g-sidenav-show  bg-gray-100">
+
+    <body class="g-sidenav-show">
+      <%- include('../admin_menu') -%>
+
+      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav
+          class="navbar navbar-main navbar-expand-lg position-sticky mt-2 top-1 px-0 py-1 mx-3 shadow-none border-radius-lg z-index-sticky"
+          id="navbarBlur" data-scroll="true">
+          <div class="container-fluid py-1 px-2">
+            <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </div>
+            <nav aria-label="breadcrumb" class="ps-2">
+              <ol class="breadcrumb bg-transparent mb-0 p-0">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Connect 360</a>
+                </li>
+                <li class="breadcrumb-item text-sm text-dark active font-weight-bold" aria-current="page">User
+                  Create</li>
+              </ol>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+              <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+
+              </div>
+              <ul class="navbar-nav  justify-content-end">
+                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                  <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                    <div class="sidenav-toggler-inner">
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <div class="container-fluid py-2">
+          <div class="row">
+            <div class="col-lg-12 position-relative z-index-2">
+              <div class="ms-3">
+                <h3 class="mb-0 h4 font-weight-bolder">User Management</h3>
+                <p class="mb-4">
+                  Create new user for application.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid py-2">
+          <!-- Create new user form -->
+          <div class="row">
+            <div class="col-12">
+              <div class="multisteps-form mb-9">
+                <!--progress bar-->
+                <div class="row">
+                  <div class="col-12 col-lg-8 mx-auto my-5">
+                  </div>
+                </div>
+                <!--form panels-->
+                <div class="row">
+                  <div class="col-12 col-lg-8 m-auto">
+                    <div class="card">
+                      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                          <div class="multisteps-form__progress">
+                            <button class="multisteps-form__progress-btn js-active" disabled type="button" title="User Info">
+                              <span>User Info</span>
+                            </button>
+                            <button class="multisteps-form__progress-btn" disabled type="button" title="Address">Device</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <form class="multisteps-form__form">
+                          <!--single form panel-->
+                          <div class="multisteps-form__panel border-radius-xl bg-white js-active" data-animation="FadeIn">
+                            <h5 class="font-weight-bolder mb-0">User Information</h5>
+                            <p class="mb-0 text-sm">Mandatory informations</p>
+                            <div class="multisteps-form__content">
+                              <div class="row mt-3">
+                                <div class="col-12 col-sm-6">
+                                  <div class="input-group input-group-dynamic">
+                                    <label class="form-label">Username</label>
+                                    <input class="multisteps-form__input form-control username" name="username" type="text" required disabled value="<%= data.username %>"/>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                  <div class="input-group input-group-dynamic">
+                                    <label class="form-label">Password</label>
+                                    <input class="multisteps-form__input form-control password" name="password" type="password"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-12 col-sm-6">
+                                  <div class="input-group input-group-dynamic">
+                                    <select class="form-control active-status" name="active-status" id="active-status">
+                                      <option value="1" <%= data.active == 1 ? 'selected' : '' %> >Active</option>
+                                      <option value="0" <%= data.active == 0 ? 'selected' : '' %> >Inactive</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                  <div class="input-group input-group-dynamic">
+                                    <label class="form-label">Confirm password</label>
+                                    <input class="multisteps-form__input form-control re-password" name="re-password" type="password"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="button-row d-flex mt-4">
+                                <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+                              </div>
+                            </div>
+                          </div>
+                          <!--single form panel-->
+                          <div class="multisteps-form__panel border-radius-xl bg-white" data-animation="FadeIn">
+                            <h5 class="font-weight-bold mb-0">Device (optional)</h5>
+                            <p class="mb-0 text-sm">Mapping device to user for tracking</p>
+                            <div class="multisteps-form__content">
+                              <div class="row mt-3">
+                                
+                                <div class="card-body px-3 pt-0 pb-2">
+                                  <p class="mb-0 text-sm">List device already mapping to user</p>
+                                  <div class="table-responsive p-0">
+                                    <table class="table align-items-center justify-content-center mb-0 device-list-add">
+                                      <thead>
+                                        <tr>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Device Id</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Channel</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <% if (data.devices.length == 0) { %>
+                                          <tr class="device-list-add-empty">
+                                            <td colspan="5" class="text-center">No devices found</td>
+                                          </tr>
+                                        <% } else { %>
+                                          <% for (let i = 0; i < data.devices.length; i++) { %>
+                                            <tr>
+                                              <td>
+                                                  <p class="text-sm font-weight-normal mb-0"><%= data.devices[i].id_device %></p>
+                                              </td>
+                                              <td>
+                                                  <p class="text-sm font-weight-normal mb-0"><%= data.devices[i].device_name %></p>
+                                              </td>
+                                              <td>
+                                                  <p class="text-sm font-weight-normal mb-0"><%= data.devices[i].channel %></p>
+                                              </td>
+                                              
+                                              <td>
+                                                  <p class="text-sm font-weight-normal mb-0">
+                                                      <span class="badge badge-md   
+                                                      <%= data.devices[i].active == 1 ? 'bg-gradient-success' : 'bg-gradient-danger' %>">
+                                                      <%= data.devices[i].active ? 'Active' : 'Inactive' %>
+                                                      </span>
+                                                  </p>
+                                              </td>
+                                              <td>
+                                                  <p class="text-sm font-weight-normal mb-0">
+                                                      <span class="badge badge-md bg-gradient-danger cursor-pointer remove-device-into-user-btn" data="<%= data.devices[i].channel %>">Remove</span>
+                                                  </p>
+                                              </td>
+                                          </tr>
+                                          <% } %>
+                                        <% } %>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </hr>
+                              <div class="row mt-4">
+                                <div class="col">
+                                  <div class="input-group input-group-dynamic">
+                                    <label class="form-label">Search by device channel</label>
+                                    <input class="multisteps-form__input form-control device-search" type="text" name="device-search"/>
+                                  </div>
+                                </div>
+                                <div class="card-body px-3 pt-0 pb-2 col mt-2">
+                                  <div class="table-responsive p-0">
+                                    <table class="table align-items-center justify-content-center mb-0 device-list-result">
+                                      <thead>
+                                        <tr>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Device Id</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Channel</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr class="device-list-result-empty">
+                                          <td colspan="5" class="text-center">No devices search found</td>
+                                        </tr>
+                                        
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="button-row d-flex mt-4">
+                                <button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
+                                <button class="btn bg-gradient-dark ms-auto mb-0" id="submit-create-user-btn" type="button" title="Send">Update</button>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <script src="/template/js/admin_user_form_update.js"></script>
+      <%- include('../admin_script') -%>
+    </body>
+
+</html>
