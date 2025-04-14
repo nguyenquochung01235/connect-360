@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `connect-360-database`
+-- Database: `connect_360_database`
 --
 
 -- --------------------------------------------------------
