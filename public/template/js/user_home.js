@@ -66,7 +66,7 @@ function updateDeviceStatus(channel, status, temperature, humidity, unit, timest
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-temperature').text(temperature ? temperature : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-humidity').text(humidity ? humidity : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? `°${unit}`: "--");
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text(formatTimestamp(timestamp ? timestamp : "--"));``
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text("Cập nhật lúc: " + formatTimestamp(timestamp ? timestamp : "--"));``
   if(status === statusDisconnect){
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').addClass('text-danger').removeClass('text-success').removeClass('text-warning');
   }
