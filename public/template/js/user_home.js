@@ -1,7 +1,7 @@
 const protocol = window.location.protocol.includes('https') ? 'wss': 'ws'
 const ws = new WebSocket(`${protocol}://${location.host}/realtime/device/data`);
 const deviceStatusList = new Map() ;
-const timeout = 10000; // 10 seconds
+const timeout = 60000; // 60 seconds
 const statusConnect = 'Đã kết nối';
 const statusDisconnect = 'Không có kết nối';
 
@@ -16,19 +16,21 @@ $(document).ready(function() {
 });
 
 function formatTimestamp(isoString) {
-  const date = new Date(isoString);
+  if(isoString){
+    const date = new Date(isoString);
+    const pad = (n) => n.toString().padStart(2, '0');
 
-  const pad = (n) => n.toString().padStart(2, '0');
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
 
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // months are 0-based
+    const year = date.getFullYear();
 
-  const day = pad(date.getDate());
-  const month = pad(date.getMonth() + 1); // months are 0-based
-  const year = date.getFullYear();
-
-  return `${hours}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    return `${hours}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    }
+  return '--';
 }
 
 
@@ -40,9 +42,8 @@ function openConnectionToServer() {
 
 function getMessageFromServer(){
  ws.addEventListener('message', event => {
-  console.log(event.data);
   const data = JSON.parse(event.data);
-  const channel = `devices/${data.deviceId}/value`;
+  const channel = `devices/${data.device_id}/value`;
   if(deviceStatusList.has(channel)){
     deviceStatusList.set(channel, new Date(data.timestamp));
     updateDeviceStatus(channel, statusConnect, data.temperature, data.humidity, data.unit, data.timestamp);
@@ -54,17 +55,19 @@ function checkDeviceStatus() {
   const currentTime = new Date().toISOString();
   deviceStatusList.forEach((lastUpdated, channel) => {
     if (new Date(currentTime) - new Date(lastUpdated) > timeout) {
-      updateDeviceStatus(channel, statusDisconnect, '--', '--', '-', currentTime);
+      console.log("Đã ngắt kết nối")
+      updateDeviceStatus(channel, statusDisconnect, null, null, null, currentTime);
     }
   })
 }
 
 function updateDeviceStatus(channel, status, temperature, humidity, unit, timestamp) {
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status);
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-temperature').text(temperature);
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-humidity').text(humidity);
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(`°${unit}`);
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text(formatTimestamp(timestamp));``
+  console.log("Cập nhật trạng thái thiết bị", channel, status, temperature, humidity, unit, timestamp);
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status ? status : "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-temperature').text(temperature ? temperature : "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-humidity').text(humidity ? humidity : "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? `°${unit}`: "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text(formatTimestamp(timestamp ? timestamp : "--"));``
   if(status === statusDisconnect){
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').addClass('text-danger').removeClass('text-success').removeClass('text-warning');
   }

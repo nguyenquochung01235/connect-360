@@ -6,7 +6,7 @@ const app = require('./app');
 const { mqttEvents } = require('./services/realtime/mqtt.service');
 const WebSocketService = require('./services/realtime/realtime.service');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3003;
 
 const server = http.createServer(app);
 WebSocketService.initialize(server);
