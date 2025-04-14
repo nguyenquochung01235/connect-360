@@ -20,6 +20,7 @@ app.use('/', Router.USER);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.set('trust proxy', true);
 
 
 module.exports = app;

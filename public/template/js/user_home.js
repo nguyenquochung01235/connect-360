@@ -62,7 +62,6 @@ function checkDeviceStatus() {
 }
 
 function updateDeviceStatus(channel, status, temperature, humidity, unit, timestamp) {
-  console.log("Cập nhật trạng thái thiết bị", channel, status, temperature, humidity, unit, timestamp);
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status ? status : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-temperature').text(temperature ? temperature : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-humidity').text(humidity ? humidity : "--");
