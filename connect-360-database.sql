@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2025 at 05:05 PM
+-- Generation Time: Apr 14, 2025 at 05:31 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -160,7 +160,8 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `device`
   ADD PRIMARY KEY (`id_device`),
-  ADD UNIQUE KEY `channel` (`channel`) USING HASH;
+  ADD UNIQUE KEY `channel` (`channel`) USING HASH,
+  ADD UNIQUE KEY `channel_2` (`channel`) USING HASH;
 
 --
 -- Indexes for table `user`
