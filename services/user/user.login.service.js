@@ -12,7 +12,9 @@ UserLoginService.generateToken = function(username){
 }
 
 UserLoginService.login = async function(username, password) {
-    return await UserModel.findOne({where : { username: `${username}` }}).then( async function(data) {
+    return await UserModel.findOne({
+        where : { username: `${username}` , active: 1}
+    }).then( async function(data) {
         if(data.length == 0){return false}
 
         const isPasswordMatch = await bcrypt.compare(password, data.password);

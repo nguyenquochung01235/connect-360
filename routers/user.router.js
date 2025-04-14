@@ -9,11 +9,11 @@ const UserService = require('../services/user/user.service');
 
 // User Login Page
 router.get("/", async (req, res, next) => {
-    res.render('login', { title: "LOGIN | CONNECT 360" });
+    res.render('login', { title: "Connect 360 | Đăng nhập" });
 });
 
 router.get(URL.USER_URL.USER_LOGIN_URL, async (req, res, next) => {
-    res.render('login', { title: "LOGIN | CONNECT 360" });
+    res.render('login', { title: "Connect 360 | Đăng nhập" });
 });
 
 // User Login Authentication
@@ -40,7 +40,7 @@ router.get(URL.USER_URL.USER_HOME_URL, user_auth,async (req, res, next) => {
     const userToken = jwt.verify(token, process.env.JWT_KEY);
     const data = await UserService.getUserAndDeviceByUsername(userToken.username);
     res.render('home', { 
-        title: "HOME PAGE | CONNECT 360" 
+        title: "Connect 360 | Trang chủ" 
         , data: data
     });
 });

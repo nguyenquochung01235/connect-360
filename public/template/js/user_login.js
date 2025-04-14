@@ -20,7 +20,7 @@ $("#submit_button").click(function () {
       }
     )
     .fail((error) => {
-      alert('Sai tài khoản hoặc mật khẩu');
+      alert('Tài khoản của bạn không đúng hoặc đã bị khóa!');
       location.reload();
     })
 })

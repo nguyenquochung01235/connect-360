@@ -46,7 +46,7 @@ function getMessageFromServer(){
   const channel = `devices/${data.device_id}/value`;
   if(deviceStatusList.has(channel)){
     deviceStatusList.set(channel, new Date(data.timestamp));
-    updateDeviceStatus(channel, statusConnect, data.temperature, data.humidity, data.unit, data.timestamp);
+    updateDeviceStatus(channel, statusConnect, data.label, data.value, data.unit, data.timestamp);
   }
  })
 }
@@ -61,16 +61,24 @@ function checkDeviceStatus() {
   })
 }
 
-function updateDeviceStatus(channel, status, temperature, humidity, unit, timestamp) {
+function updateDeviceStatus(channel, status, label, value, unit, timestamp) {
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status ? status : "--");
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-temperature').text(temperature ? temperature : "--");
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-humidity').text(humidity ? humidity : "--");
-  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? `°${unit}`: "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').text(label ? label : "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').text(value ? value : "--");
+  $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? unit: "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text("Cập nhật lúc: " + formatTimestamp(timestamp ? timestamp : "--"));``
   if(status === statusDisconnect){
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').hide();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').hide();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit-text').hide();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').hide();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').addClass('text-danger').removeClass('text-success').removeClass('text-warning');
   }
   if(status === statusConnect){
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').show();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').show();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit-text').show();
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').show();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').addClass('text-success').removeClass('text-danger').removeClass('text-warning');
   }
 }
