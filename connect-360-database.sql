@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 14, 2025 at 05:31 PM
+-- Generation Time: Apr 14, 2025 at 05:37 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `connect_360_database`
+-- Database: `connect-360-database`
 --
 
 -- --------------------------------------------------------
@@ -52,7 +52,7 @@ CREATE TABLE `device` (
   `id_device` bigint(11) NOT NULL,
   `device_name` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `channel` text NOT NULL,
+  `channel` varchar(256) NOT NULL,
   `active` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
@@ -160,8 +160,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `device`
   ADD PRIMARY KEY (`id_device`),
-  ADD UNIQUE KEY `channel` (`channel`) USING HASH,
-  ADD UNIQUE KEY `channel_2` (`channel`) USING HASH;
+  ADD UNIQUE KEY `channel` (`channel`);
 
 --
 -- Indexes for table `user`
