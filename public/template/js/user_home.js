@@ -43,9 +43,11 @@ function openConnectionToServer() {
 function getMessageFromServer(){
  ws.addEventListener('message', event => {
   const data = JSON.parse(event.data);
-  const channel = `devices/${data.device_id}/value`;
+  const channel = data.topic ? data.topic :`devices/${data.device_id}/value`;
+  
   if(deviceStatusList.has(channel)){
-    deviceStatusList.set(channel, new Date(data.timestamp));
+    const deviceGetDataCurrentTime = new Date();
+    deviceStatusList.set(channel, deviceGetDataCurrentTime);
     updateDeviceStatus(channel, statusConnect, data.label, data.value, data.unit, data.timestamp);
   }
  })
@@ -55,7 +57,7 @@ function checkDeviceStatus() {
   const currentTime = new Date().toISOString();
   deviceStatusList.forEach((lastUpdated, channel) => {
     if (new Date(currentTime) - new Date(lastUpdated) > timeout) {
-      console.log("Đã ngắt kết nối")
+      console.log("Không có kết nối với thiết bị: " + channel)
       updateDeviceStatus(channel, statusDisconnect, null, null, null, currentTime);
     }
   })
