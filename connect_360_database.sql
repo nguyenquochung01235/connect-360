@@ -63,8 +63,8 @@ CREATE TABLE `device` (
 --
 
 INSERT INTO `device` (`id_device`, `device_name`, `description`, `channel`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'Cảm biến bụi', 'Dữ liệu BM2.5', 'devices/5d1f8a3c_bm25/value', 1, '2025-04-13 10:17:10', '2025-04-13 10:17:10');
-(2, 'Cảm biến bụi', 'Dữ liệu BM10', 'devices/5d1f8a3c_bm10/value', 1, '2025-04-13 10:17:10', '2025-04-13 10:17:10');
+(1, 'Cảm biến bụi', 'Dữ liệu BM2.5', 'devices/5d1f8a3c_bm25/value', 1, '2025-04-13 10:17:10', '2025-04-13 10:17:10'),
+(2, 'Cảm biến bụi', 'Dữ liệu BM10', 'devices/5d1f8a3c_bm10/value', 1, '2025-04-13 10:17:10', '2025-04-13 10:17:10'),
 (3, 'Cảm nhiệt độ', 'Dữ liệu độ C', 'devices/703365/value', 1, '2025-04-13 10:17:10', '2025-04-13 10:17:10');
 
 -- --------------------------------------------------------
@@ -88,7 +88,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `token`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'hungnq53', '$2b$10$kwtviEXE6g1NbdShZaCffulF15DJdef.qpmeHJRx0bDzms5TfOPrO', NULL, 1, '2025-04-12 06:43:37', '2025-04-13 10:17:49');
+(1, 'hungnq53', '$2b$10$kwtviEXE6g1NbdShZaCffulF15DJdef.qpmeHJRx0bDzms5TfOPrO', NULL, 1, '2025-04-12 06:43:37', '2025-04-13 10:17:49'),
 (2, 'nhanthanh', '$2b$10$0WMn6gk0y4xzrk7YCgZtHuW./Y1cHC0agbTdWoHS4Cu.2VFiU5mMW', NULL, 1, '2025-04-12 06:43:37', '2025-04-13 10:17:49');
 
 -- --------------------------------------------------------
