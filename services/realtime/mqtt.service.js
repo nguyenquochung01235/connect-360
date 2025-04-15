@@ -1,6 +1,6 @@
-const mqtt = require('mqtt')
+const mqtt = require('mqtt');
 require('dotenv').config();
-const { EventEmitter } = require('events')
+const { EventEmitter } = require('events');
 
 
 const brokerUrl = process.env.MQTT_HOST

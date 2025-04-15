@@ -85,8 +85,18 @@ function updateDeviceStatus(channel, status, label, value, unit, timestamp) {
   }
 }
 
-// Repeat every 60,000 ms
-setInterval(checkDeviceStatus, timeout);
+function reloadAfterCloseScreen(){
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      if (!ws || ws.readyState === WebSocket.CLOSED) {
+        location.reload();
+      }
+    }
+  });
+}
 
+// Repeat every 60,000 ms
+reloadAfterCloseScreen();
+setInterval(checkDeviceStatus, timeout);
 openConnectionToServer();
 getMessageFromServer();

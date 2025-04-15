@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { v4: uuidv4 } = require('uuid')
 const WebSocket = require('ws');
 const UserService = require('../user/user.service');
 
@@ -16,7 +17,7 @@ WebSocketService.initialize = (server) => {
 
     wss.on('connection', (ws, req) => {
         console.log("New client connected!");
-        
+        let user_uuid = uuidv4();
         const cookies = req.headers.cookie?.split(';').reduce((acc, cookie) => {
             const [key, value] = cookie.trim().split('=');
             acc[key] = value;
@@ -36,9 +37,9 @@ WebSocketService.initialize = (server) => {
 
         // Store WebSocket in userSocket map
         if (!userSocket.has(username)) {
-            userSocket.set(username, new Set());
+            userSocket.set(username, new Map());
         }
-        userSocket.get(username).add(ws);
+        userSocket.get(username).set(user_uuid, ws)
 
         // Associate this user to their devices
         UserService.getUserAndDeviceByUsername(username).then(user => {
@@ -56,17 +57,16 @@ WebSocketService.initialize = (server) => {
         ws.on('close', () => {
             // Remove this socket from the user's list
             if (userSocket.has(username)) {
-                userSocket.get(username).delete(ws);
+                userSocket.get(username).delete(user_uuid);
+                // Clean up deviceSocket entries (if no more connections for that user)
                 if (userSocket.get(username).size === 0) {
                     userSocket.delete(username);
-                }
-            }
-
-            // Clean up deviceSocket entries (if no more connections for that user)
-            for (const [channel, userSet] of deviceSocket.entries()) {
-                userSet.delete(username);
-                if (userSet.size === 0) {
-                    deviceSocket.delete(channel);
+                    for (const [channel, userSet] of deviceSocket.entries()) {
+                        userSet.delete(username);
+                        if (userSet.size === 0) {
+                            deviceSocket.delete(channel);
+                        }
+                    }
                 }
             }
 
@@ -79,13 +79,13 @@ WebSocketService.sendDataToUserByDeviceChannel = (channel, data) => {
     const userSet = deviceSocket.get(channel);
     if (userSet) {
         userSet.forEach(username => {
-            const wsSet = userSocket.get(username);
-            if (wsSet) {
-                wsSet.forEach(ws => {
+            const wsMap = userSocket.get(username);
+            if (wsMap) {
+                for(const [user_uuid, ws] of wsMap){
                     if (ws.readyState === WebSocket.OPEN) {
                         ws.send(data);
                     }
-                });
+                }
             }
         });
     }
