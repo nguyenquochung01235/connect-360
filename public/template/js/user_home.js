@@ -48,7 +48,7 @@ function getMessageFromServer(){
   if(deviceStatusList.has(channel)){
     const deviceGetDataCurrentTime = new Date();
     deviceStatusList.set(channel, deviceGetDataCurrentTime);
-    updateDeviceStatus(channel, statusConnect, data.label, data.value, data.unit, data.timestamp);
+    updateDeviceStatus(channel, statusConnect, data.label, data.value, data.alert ,data.unit, data.timestamp);
   }
  })
 }
@@ -58,14 +58,19 @@ function checkDeviceStatus() {
   deviceStatusList.forEach((lastUpdated, channel) => {
     if (new Date(currentTime) - new Date(lastUpdated) > timeout) {
       console.log("Không có kết nối với thiết bị: " + channel)
-      updateDeviceStatus(channel, statusDisconnect, null, null, null, currentTime);
+      updateDeviceStatus(channel, statusDisconnect, null, null, 0 ,null, currentTime);
     }
   })
 }
 
-function updateDeviceStatus(channel, status, label, value, unit, timestamp) {
+function updateDeviceStatus(channel, status, label, value, alert ,unit, timestamp) {
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status ? status : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').text(label ? label : "--");
+  if(alert == 0){
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').addClass('text-success').removeClass('text-primary')
+  }else{
+    $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').addClass('text-primary').removeClass('text-success')
+  }
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').text(value ? value : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? unit: "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text("Cập nhật lúc: " + formatTimestamp(timestamp ? timestamp : "--"));``
