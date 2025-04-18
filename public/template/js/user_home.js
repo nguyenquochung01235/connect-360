@@ -4,6 +4,10 @@ const deviceStatusList = new Map() ;
 const timeout = 60000; // 60 seconds
 const statusConnect = 'Đã kết nối';
 const statusDisconnect = 'Không có kết nối';
+var colorIndex = 0;
+const listColorHeader = ["#1A73E8", "#4CAF50", "#fb8c00", "#6f42c1", "#fb8c00"];
+const listDeviceGroupColor = new Map();
+const deviceInactiveColorHeader = '#F44335'
 
 $(document).ready(function() {
   $('.device-item-card').each(function () { 
@@ -48,7 +52,15 @@ function getMessageFromServer(){
   if(deviceStatusList.has(channel)){
     const deviceGetDataCurrentTime = new Date();
     deviceStatusList.set(channel, deviceGetDataCurrentTime);
-    updateDeviceStatus(channel, statusConnect, data.label, data.value, data.alert ,data.unit, data.timestamp);
+    if(!listDeviceGroupColor.has(data.device_id)){
+      listDeviceGroupColor.set(data.device_id, listColorHeader[colorIndex])
+      if(listColorHeader.length - 1 > colorIndex){
+        colorIndex++;
+      }else{
+        colorIndex = 0;
+      }
+    }
+    updateDeviceStatus(channel, statusConnect, data.device_id ,data.label, data.value, data.alert ,data.unit, data.timestamp);
   }
  })
 }
@@ -58,12 +70,12 @@ function checkDeviceStatus() {
   deviceStatusList.forEach((lastUpdated, channel) => {
     if (new Date(currentTime) - new Date(lastUpdated) > timeout) {
       console.log("Không có kết nối với thiết bị: " + channel)
-      updateDeviceStatus(channel, statusDisconnect, null, null, 0 ,null, currentTime);
+      updateDeviceStatus(channel, statusDisconnect, null ,null, null, 0 ,null, currentTime);
     }
   })
 }
 
-function updateDeviceStatus(channel, status, label, value, alert ,unit, timestamp) {
+function updateDeviceStatus(channel ,status, device_id_group ,label, value, alert ,unit, timestamp) {
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').text(status ? status : "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').text(label ? label : "--");
   if(alert == 0){
@@ -75,6 +87,7 @@ function updateDeviceStatus(channel, status, label, value, alert ,unit, timestam
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit').text(unit ? unit: "--");
   $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-last-updated').text("Cập nhật lúc: " + formatTimestamp(timestamp ? timestamp : "--"));``
   if(status === statusDisconnect){
+    $(`.device-item-card[data-device-channel="${channel}"]`).css("border-top", `${deviceInactiveColorHeader} 3px solid`);
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').hide();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').hide();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit-text').hide();
@@ -82,6 +95,9 @@ function updateDeviceStatus(channel, status, label, value, alert ,unit, timestam
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-status').addClass('text-danger').removeClass('text-success').removeClass('text-warning');
   }
   if(status === statusConnect){
+    if(listDeviceGroupColor.has(device_id_group)){
+      $(`.card[data-device-channel="${channel}"]`).css("border-top", `${listDeviceGroupColor.get(device_id_group)} 3px solid`);
+    }
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-label').show();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-value').show();
     $(`.device-item-card[data-device-channel="${channel}"]`).find('.device-unit-text').show();
