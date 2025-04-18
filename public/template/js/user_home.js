@@ -5,7 +5,7 @@ const timeout = 60000; // 60 seconds
 const statusConnect = 'Đã kết nối';
 const statusDisconnect = 'Không có kết nối';
 var colorIndex = 0;
-const listColorHeader = ["#1A73E8", "#4CAF50", "#fb8c00", "#6f42c1", "#fb8c00"];
+const listColorHeader = ["#4CAF50", "#1A73E8", "#fb8c00", "#6f42c1", "#fb8c00"];
 const listDeviceGroupColor = new Map();
 const deviceInactiveColorHeader = '#F44335'
 
