@@ -60,7 +60,8 @@ function getMessageFromServer(){
         colorIndex = 0;
       }
     }
-    updateDeviceStatus(channel, statusConnect, data.device_id ,data.label, data.value, data.alert ,data.unit, data.timestamp);
+    // updateDeviceStatus(channel, statusConnect, data.device_id ,data.label, data.value, data.alert ,data.unit, data.timestamp);
+    updateDeviceStatus(channel, statusConnect, data.device_id ,data.label, data.value, data.alert ,data.unit, deviceGetDataCurrentTime.toISOString());
   }
  })
 }
